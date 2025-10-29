@@ -1,0 +1,22 @@
+# 차후 필요시 설정
+
+#services:
+#  local-mysql:
+#    image: mysql:latest
+#    platform: linux/amd64
+#    container_name: local-mysql
+#    environment:
+#      MYSQL_ROOT_PASSWORD: 1234
+#      TZ: Asia/Seoul
+#    volumes:
+#      - ./config/:/docker-entrypoint-initdb.d/
+#      - ./mysql_data:/var/lib/mysql
+#    ports:
+#      - "3306:3306"
+#
+#  local-redis:
+#    image: redis
+#    platform: linux/amd64
+#    container_name: eum-redis
+#    ports:
+#      - "6379:6379"
