@@ -2,7 +2,7 @@ package com.kt.service;
 
 import org.springframework.stereotype.Service;
 
-import com.kt.domain.User;
+import com.kt.domain.user.User;
 import com.kt.dto.UserCreateRequest;
 import com.kt.repository.UserRepository;
 
@@ -14,7 +14,6 @@ public class UserService {
 	private final UserRepository userRepository;
 
 	public void create(UserCreateRequest request) {
-		System.out.println(request.toString());
 		var newUser = new User(
 			request.loginId(),
 			request.password(),
