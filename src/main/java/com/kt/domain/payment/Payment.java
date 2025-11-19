@@ -2,6 +2,7 @@ package com.kt.domain.payment;
 
 import com.kt.common.BaseEntity;
 import com.kt.domain.order.Order;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
