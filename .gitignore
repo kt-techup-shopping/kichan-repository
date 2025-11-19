@@ -50,3 +50,6 @@ out/
 
 # Docker MySQL 볼륨(데이터베이스 저장소)
 docker/mysql-data/
+# Docker MySQL data
+/mysql_data/
+
