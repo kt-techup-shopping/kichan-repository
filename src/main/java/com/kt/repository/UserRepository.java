@@ -1,21 +1,29 @@
 package com.kt.repository;
 
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Repository;
+import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+
+import com.kt.common.CustomException;
+import com.kt.common.ErrorCode;
 import com.kt.domain.user.User;
 
-import lombok.RequiredArgsConstructor;
+public interface UserRepository extends JpaRepository<User, Long> {
+	Boolean existsByLoginId(String loginId);
 
-@Repository
-@RequiredArgsConstructor
-public class UserRepository {
-	private final JdbcTemplate jdbcTemplate;
+	Optional<User> findByLoginId(String loginId);
 
-	public void save(User user) {
-		// 서비스에서 dto를 도메인(비지니스모델)으로 바꾼다음 전달
-		var sql = "INSERT INTO MEMBER (loginId, password, name, birthday) VALUES (?, ?, ?, ?)";
+	@Query("""
+	SELECT exists (SELECT u FROM User u WHERE u.loginId = ?1)
+	""")
+	Boolean existsByLoginIdJPQL(String loginId);
 
-		jdbcTemplate.update(sql, user.getLoginId(), user.getPassword(), user.getName(), user.getBirthday());
+	Page<User> findAllByNameContaining(String name, Pageable pageable);
+
+	default User findByIdOrThrow(Long id, ErrorCode errorCode) {
+		return findById(id).orElseThrow(() -> new CustomException(errorCode));
 	}
 }
