@@ -1,9 +1,13 @@
 package com.kt.common;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+// API 응답을 표준화하기 위한 클래스
+// Spring에서는 Http응답을 처리해주는 객체가 존재함
+// ResponseEntity
 @Getter
 @AllArgsConstructor
 public class ApiResult<T> {

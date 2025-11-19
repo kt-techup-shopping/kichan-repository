@@ -38,7 +38,7 @@ public class User extends BaseEntity {
 	@OneToMany(mappedBy = "user")
 	private List<Order> orders = new ArrayList<>();
 
-	private User(String loginId, String password, String name, String email, String mobile, Gender gender,
+	public User(String loginId, String password, String name, String email, String mobile, Gender gender,
 		LocalDate birthday, LocalDateTime createdAt, LocalDateTime updatedAt, Role role) {
 		this.loginId = loginId;
 		this.password = password;
@@ -49,7 +49,6 @@ public class User extends BaseEntity {
 		this.birthday = birthday;
 		this.createdAt = createdAt;
 		this.updatedAt = updatedAt;
-		this.role = role;
 	}
 
 	public static User normalUser(String loginId, String password, String name, String email, String mobile,

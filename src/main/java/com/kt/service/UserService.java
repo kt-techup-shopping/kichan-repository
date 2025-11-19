@@ -2,23 +2,24 @@ package com.kt.service;
 
 import java.time.LocalDateTime;
 
-import org.springframework.stereotype.Service;
-
-import com.kt.domain.user.User;
-import com.kt.repository.UserRepository;
-
-import lombok.RequiredArgsConstructor;
-
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.kt.common.ErrorCode;
 import com.kt.common.Preconditions;
+import com.kt.domain.user.User;
 import com.kt.dto.user.UserRequest;
+import com.kt.repository.user.UserRepository;
 
+import lombok.RequiredArgsConstructor;
+
+// 구현체가 하나 이상 필요로해야 인터페이스가 의미가있다
+// 인터페이스 : 구현체 1:1로 다 나눠야하나
+// 관례를 지키려고 추상화를 굳이하는 것을 관습적추상화
+// 인터페이스로 굳이 나눴을때 불편한 점
 
 @Service
 @RequiredArgsConstructor
@@ -27,20 +28,23 @@ public class UserService {
 	private final UserRepository userRepository;
 	private final PasswordEncoder passwordEncoder;
 
+	// 트랜잭션 처리해줘
+	// PSA - Portable Service Abstraction
+	// 환경설정을 살짝 바꿔서 일관된 서비스를 제공하는 것
 	public void create(UserRequest.Create request) {
 		var newUser = User.normalUser(
-			request.loginId(),
+				request.loginId(),
 			passwordEncoder.encode(request.password()),
-			request.name(),
-			request.email(),
-			request.mobile(),
-			request.gender(),
-			request.birthday(),
-			LocalDateTime.now(),
-			LocalDateTime.now()
-		);
+				request.name(),
+				request.email(),
+				request.mobile(),
+				request.gender(),
+				request.birthday(),
+				LocalDateTime.now(),
+				LocalDateTime.now()
+			);
 
-		userRepository.save(newUser);
+			userRepository.save(newUser);
 	}
 
 	public boolean isDuplicateLoginId(String loginId) {
@@ -76,6 +80,8 @@ public class UserService {
 
 	public void delete(Long id) {
 		userRepository.deleteById(id);
-
+		// 삭제에는 두가지 개념 - softdelete, harddelete
+		// var user = userRepository.findById(id).orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
+		// userRepository.delete(user);
 	}
 }

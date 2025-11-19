@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.kt.common.ApiResult;
+import com.kt.common.SwaggerAssistance;
 import com.kt.dto.user.UserRequest;
 import com.kt.dto.user.UserUpdatePasswordRequest;
 import com.kt.service.UserService;
@@ -21,10 +22,11 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
+@Tag(name = "User", description = "유저 관련 API")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/users")
-public class UserController{
+public class UserController extends SwaggerAssistance {
 	// userservice를 di받아야함
 	// di받는 방식이 생성자주입 씀 -> 재할당을 금지함
 

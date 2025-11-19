@@ -13,10 +13,14 @@ import io.swagger.v3.oas.annotations.Hidden;
 @Hidden
 @RestControllerAdvice
 public class ApiAdvice {
-
+	// 어떤예외를 처리할 것인지 정의
+	// MethodArgumentNotValidException 이 익셉션을 처리하도록
+	// @ExceptionHandler(MethodArgumentNotValidException.class)
+	// 500에러를 하나로 처리할때
 	@ExceptionHandler(Exception.class)
 	public ResponseEntity<ErrorResponse.ErrorData> internalServerError(Exception e) {
-		e.printStackTrace();
+		e.printStackTrace();//<-에러가뜬건지 알아볼때
+		// 서버에러입니다
 		return ErrorResponse.error(HttpStatus.INTERNAL_SERVER_ERROR, "서버에러입니다. 백엔드팀에 문의하세요.");
 	}
 

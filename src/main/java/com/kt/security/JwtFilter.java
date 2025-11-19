@@ -15,6 +15,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 
+// @WebFilter(urlPatterns = "/*")
 @Component
 @RequiredArgsConstructor
 public class JwtFilter extends OncePerRequestFilter {
@@ -55,4 +56,8 @@ public class JwtFilter extends OncePerRequestFilter {
 
 	// jwt토큰이 header authorization에 Bearer {token} 형식으로 옴
 	// 1. request에서 authorization 헤더 가져오기
+	// 2. Bearer 붙어있으면 떼고 토큰만 가져오기
+	// 3. token이 유효한지를 검사
+	// 4. token이 만료되었는지도 검사
+	// 5. 유효하면 id값 꺼내서 SecurityContextHolder에 인가된 객체로 저장
 }
