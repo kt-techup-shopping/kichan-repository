@@ -5,9 +5,9 @@ import java.util.List;
 
 import org.apache.logging.log4j.util.Strings;
 
-import com.kt.common.BaseEntity;
-import com.kt.common.ErrorCode;
-import com.kt.common.Preconditions;
+import com.kt.common.exception.ErrorCode;
+import com.kt.common.support.BaseEntity;
+import com.kt.common.support.Preconditions;
 import com.kt.domain.orderproduct.OrderProduct;
 
 import jakarta.persistence.Entity;
@@ -72,7 +72,7 @@ public class Product extends BaseEntity {
 
 	public Product(String name, Long price, Long stock) {
 		Preconditions.validate(Strings.isNotBlank(name), ErrorCode.INVALID_PARAMETER);
-		Preconditions.validate(price >= 0, ErrorCode.INVALID_PARAMETER);
+		Preconditions.validate(price != null && price >= 0, ErrorCode.INVALID_PARAMETER);
 		Preconditions.validate(stock >= 0, ErrorCode.INVALID_PARAMETER);
 
 		this.name = name;

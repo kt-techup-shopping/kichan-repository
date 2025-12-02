@@ -1,20 +1,16 @@
 services:
   local-mysql:
-    image: mysql:latest
-    platform: linux/amd64
-    container_name: local-mysql
+    image: mysql
+    container_name: techup-mysql
     environment:
       MYSQL_ROOT_PASSWORD: 1234
-      TZ: Asia/Seoul
-    volumes:
-      - ./config/:/docker-entrypoint-initdb.d/
-      - ./mysql_data:/var/lib/mysql
     ports:
       - "3306:3306"
+    platform: linux/arm64
 
   local-redis:
     image: redis
-    platform: linux/amd64
-    container_name: eum-redis
+    container_name: techup-redis
     ports:
       - "6379:6379"
+    platform: linux/arm64
