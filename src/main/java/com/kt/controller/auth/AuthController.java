@@ -5,7 +5,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.kt.common.ApiResult;
+import com.kt.common.response.ApiResult;
+import com.kt.common.support.TechUpLogger;
+import com.kt.domain.history.HistoryType;
 import com.kt.dto.auth.LoginRequest;
 import com.kt.dto.auth.LoginResponse;
 import com.kt.service.AuthService;
@@ -19,6 +21,7 @@ import lombok.RequiredArgsConstructor;
 public class AuthController {
 	private final AuthService authService;
 
+	@TechUpLogger(type = HistoryType.LOGIN, content = "사용자 로그인")
 	@PostMapping("/login")
 	public ApiResult<LoginResponse> login(@RequestBody @Valid LoginRequest request) {
 		var pair = authService.login(request.loginId(), request.password());

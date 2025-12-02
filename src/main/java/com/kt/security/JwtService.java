@@ -46,6 +46,7 @@ public class JwtService {
 	}
 
 	public Long parseId(String token) {
+		System.out.println(token);
 		var id = Jwts.parser()
 			.verifyWith(jwtProperties.getSecret())
 			.build()
